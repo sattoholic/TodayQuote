@@ -12,5 +12,5 @@ data class Quote(
     @ColumnInfo
     var text: String,
     @ColumnInfo
-    var from: String =""
+    var from: String = ""
 )

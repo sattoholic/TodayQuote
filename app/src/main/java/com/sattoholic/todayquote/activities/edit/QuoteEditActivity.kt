@@ -1,33 +1,40 @@
 package com.sattoholic.todayquote.activities.edit
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sattoholic.todayquote.R
 import com.sattoholic.todayquote.databinding.ActivityQuoteEditBinding
+import com.sattoholic.todayquote.viewmodels.QuoteEditViewModel
 import com.sattoholic.todayquote.viewmodels.QuoteEditViewModelFactory
-import com.sattoholic.todayquote.viewmodels.QuoteEditViewModels
 
 
 class QuoteEditActivity : AppCompatActivity() {
     lateinit var binding: ActivityQuoteEditBinding
-    lateinit var viewModel: QuoteEditViewModels
+    lateinit var viewModel: QuoteEditViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quote_edit)
 
-        viewModel = QuoteEditViewModelFactory(application).create(QuoteEditViewModels::class.java)
+        viewModel = QuoteEditViewModelFactory(application).create(QuoteEditViewModel::class.java)
 
         val adapter = QuoteEditAdapter()
 
-        Log.d("EDIT 엑티비티 디버그", viewModel.editQuoteList.toString())
+        viewModel.dataLoaded.observe(this){
+            if(it){
+                adapter.updateList(viewModel.editQuoteList)
+            }
+        }
 
-        adapter.updateList(viewModel.editQuoteList)
         binding.quoteEditList.layoutManager = LinearLayoutManager(this)
         binding.quoteEditList.adapter = adapter
     }
+
+    override fun onBackPressed() {
+        setResult(RESULT_OK)
+        super.onBackPressed()
+    }
+
 }

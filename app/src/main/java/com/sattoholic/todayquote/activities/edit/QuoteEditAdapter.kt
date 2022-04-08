@@ -1,7 +1,6 @@
 package com.sattoholic.todayquote.activities.edit
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,14 +21,15 @@ class QuoteEditAdapter: RecyclerView.Adapter<QuoteEditAdapter.QuoteEditViewHolde
                 roomHelper = RoomHelper.getInstance(this@QuoteEditViewHolder.context)
             }
             binding.viewHolder = this
-
-            Log.d("뷰홀더 디버그", quoteList.toString())
         }
 
         fun setQuote(quote: Quote){
             binding.quote = quote
             if(quote.text.isBlank()){
                 setButtonQuoteNotExist()
+            }
+            else{
+                setButtonQuoteExist()
             }
         }
 
@@ -46,6 +46,9 @@ class QuoteEditAdapter: RecyclerView.Adapter<QuoteEditAdapter.QuoteEditViewHolde
         }
 
         fun addQuote(view: View){
+            if(binding.quoteTextEdit.text.isBlank()){
+                return Toast.makeText(context, context.getString(R.string.text_empty_error), Toast.LENGTH_SHORT).show()
+            }
             val position = adapterPosition
             CoroutineScope(Dispatchers.IO).launch {
                 val newQuote = async {
@@ -58,12 +61,8 @@ class QuoteEditAdapter: RecyclerView.Adapter<QuoteEditAdapter.QuoteEditViewHolde
                 }.join()
 
                 withContext(Dispatchers.Main){
-                    Log.d("INSERT 디버그", quoteList.toString())
                     notifyDataSetChanged()
                     setButtonQuoteExist()
-                }
-                withContext(Dispatchers.Default){
-                    Log.d("INSERT DB 디버그", roomHelper?.quoteDao()?.getQuote()?.toString()!!)
                 }
             }
 
@@ -107,7 +106,7 @@ class QuoteEditAdapter: RecyclerView.Adapter<QuoteEditAdapter.QuoteEditViewHolde
     fun updateList(quoteList: List<Quote>){
         this.quoteList.clear()
         this.quoteList.addAll(quoteList)
-        Log.d("디버그", "quoteList Size : ${quoteList.size}")
+
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(

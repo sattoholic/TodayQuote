@@ -12,14 +12,14 @@ import com.sattoholic.todayquote.model.Quote
 
 class QuoteListAdapter: RecyclerView.Adapter<QuoteListAdapter.QuoteListViewHolder>() {
     class QuoteListViewHolder(private val binding: QuoteListItemBinding, private val context: Context): RecyclerView.ViewHolder(binding.root){
-        init {
-            binding.viewHolder = this
-            if(binding.quote?.from?.isBlank() == true){
-                binding.quoteFromSearchBtn.visibility = View.GONE
-            }
-        }
 
         fun setQuote(quote: Quote){
+            binding.viewHolder = this
+
+            if(quote.from.isBlank()){
+                binding.quoteFromSearchBtn.visibility = View.GONE
+            }
+
             binding.quote = quote
         }
 

@@ -13,4 +13,5 @@
     <string name="quote_add">추가되었습니다.</string>
     <string name="quote_modify">수정되었습니다.</string>
     <string name="quote_delete">삭제되었습니다.</string>
+    <string name="text_empty_error">명언은 필수 입력입니다.</string>
 </resources>
