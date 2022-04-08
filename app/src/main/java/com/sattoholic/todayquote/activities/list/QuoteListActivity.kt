@@ -3,6 +3,7 @@ package com.sattoholic.todayquote.activities.list
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sattoholic.todayquote.R
 import com.sattoholic.todayquote.databinding.ActivityQuoteListBinding
@@ -17,7 +18,7 @@ class QuoteListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quote_list)
 
-        viewModel = QuoteListViewModelFactory(application).create(QuoteListViewModel::class.java)
+        viewModel = ViewModelProvider(this, QuoteListViewModelFactory(application)).get(QuoteListViewModel::class.java)
 
 
         val adapter = QuoteListAdapter()

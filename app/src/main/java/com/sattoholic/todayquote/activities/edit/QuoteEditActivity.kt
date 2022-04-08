@@ -3,6 +3,7 @@ package com.sattoholic.todayquote.activities.edit
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sattoholic.todayquote.R
 import com.sattoholic.todayquote.databinding.ActivityQuoteEditBinding
@@ -18,7 +19,7 @@ class QuoteEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quote_edit)
 
-        viewModel = QuoteEditViewModelFactory(application).create(QuoteEditViewModel::class.java)
+        viewModel = ViewModelProvider(this, QuoteEditViewModelFactory(application)).get(QuoteEditViewModel::class.java)
 
         val adapter = QuoteEditAdapter()
 

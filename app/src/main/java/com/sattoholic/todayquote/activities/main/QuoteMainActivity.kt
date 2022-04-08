@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.sattoholic.todayquote.R
 import com.sattoholic.todayquote.activities.edit.QuoteEditActivity
 import com.sattoholic.todayquote.activities.list.QuoteListActivity
@@ -22,7 +23,7 @@ class QuoteMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quote_main)
-        viewModel = QuoteMainViewModelFactory(application).create(QuoteMainViewModel::class.java)
+        viewModel = ViewModelProvider(this, QuoteMainViewModelFactory(application)).get(QuoteMainViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.main = this
