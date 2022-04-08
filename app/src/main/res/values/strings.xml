@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TodayQuote</string>
+    <string name="delete">삭제</string>
+    <string name="modify">수정</string>
+    <string name="add">추가</string>
+    <string name="quote_share">명언 공유</string>
+    <string name="quote_from_search">출처 검색</string>
+    <string name="quote_list">명언 보기</string>
+    <string name="quote_edit">명언 편집</string>
+    <string name="quote_text_edit_hint">명언의 내용을 입력하세요.</string>
+    <string name="quote_from_edit_hint">명언의 출처를 입력하세요.</string>
+    <string name="wrong_viewmodel_message">잘못된 뷰모델 클래스 입니다.</string>
+    <string name="quote_add">추가되었습니다.</string>
+    <string name="quote_modify">수정되었습니다.</string>
+    <string name="quote_delete">삭제되었습니다.</string>
+</resources>

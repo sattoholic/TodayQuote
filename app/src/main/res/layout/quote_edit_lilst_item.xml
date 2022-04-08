@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewHolder"
+            type="com.sattoholic.todayquote.activities.edit.QuoteEditAdapter.QuoteEditViewHolder" />
+        <variable
+            name="quote"
+            type="com.sattoholic.todayquote.model.Quote" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/quote_text_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/quote_text_edit_hint"
+            android:inputType="textPersonName"
+            android:text="@{quote.text}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/quote_from_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="end"
+            android:hint="@string/quote_from_edit_hint"
+            android:inputType="textPersonName"
+            android:text="@{quote.from}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quote_text_edit" />
+
+        <Button
+            android:id="@+id/quote_delete_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/delete_btn"
+            android:onClick="@{viewHolder::deleteQuote}"
+            android:text="@string/delete"
+            app:layout_constraintEnd_toStartOf="@+id/quote_modify_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quote_from_edit" />
+
+        <Button
+            android:id="@+id/quote_modify_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/share_edit_btn"
+            android:onClick="@{viewHolder::modifyQuote}"
+            android:text="@string/modify"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/quote_delete_btn"
+            app:layout_constraintTop_toBottomOf="@+id/quote_from_edit"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/quote_add_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/from_search_btn"
+            android:onClick="@{viewHolder::addQuote}"
+            android:text="@string/add"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quote_delete_btn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
