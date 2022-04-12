@@ -1,15 +1,13 @@
 package com.sattoholic.todayquote.viewmodels
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.sattoholic.todayquote.R
 import com.sattoholic.todayquote.database.RoomHelper
 import com.sattoholic.todayquote.model.Quote
 import kotlinx.coroutines.*
 
-class QuoteEditViewModel(application: Application): ViewModel() {
+class QuoteEditViewModel(): ViewModel() {
     private var roomHelper: RoomHelper? = null
 
     val editQuoteList
@@ -23,10 +21,9 @@ class QuoteEditViewModel(application: Application): ViewModel() {
         this.value = false
     }
 
-
-    init {
+    fun loadQuoteList(context: Context){
         CoroutineScope(Dispatchers.Main).launch {
-            roomHelper = RoomHelper.getInstance(application.baseContext)
+            roomHelper = RoomHelper.getInstance(context)
 
             withContext(Dispatchers.IO){
                 var tempList = async { roomHelper?.quoteDao()?.getQuote() ?: listOf() }
@@ -47,17 +44,6 @@ class QuoteEditViewModel(application: Application): ViewModel() {
                 }
             }
             _dataLoaded.value = true
-        }
-    }
-}
-
-class QuoteEditViewModelFactory(private val application: Application): ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if(modelClass.isAssignableFrom(QuoteEditViewModel::class.java)){
-            QuoteEditViewModel(application) as T
-        }
-        else{
-            throw IllegalAccessException(application.applicationContext.getString(R.string.wrong_viewmodel_message))
         }
     }
 }

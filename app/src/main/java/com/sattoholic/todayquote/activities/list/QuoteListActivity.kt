@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sattoholic.todayquote.R
 import com.sattoholic.todayquote.databinding.ActivityQuoteListBinding
 import com.sattoholic.todayquote.viewmodels.QuoteListViewModel
-import com.sattoholic.todayquote.viewmodels.QuoteListViewModelFactory
 
 class QuoteListActivity : AppCompatActivity() {
     lateinit var binding: ActivityQuoteListBinding
@@ -18,8 +17,9 @@ class QuoteListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quote_list)
 
-        viewModel = ViewModelProvider(this, QuoteListViewModelFactory(application)).get(QuoteListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(QuoteListViewModel::class.java)
 
+        viewModel.loadQuoteList(applicationContext)
 
         val adapter = QuoteListAdapter()
         adapter.updateList(viewModel.quoteList)

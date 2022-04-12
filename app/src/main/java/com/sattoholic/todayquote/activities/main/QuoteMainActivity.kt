@@ -13,7 +13,6 @@ import com.sattoholic.todayquote.activities.edit.QuoteEditActivity
 import com.sattoholic.todayquote.activities.list.QuoteListActivity
 import com.sattoholic.todayquote.databinding.ActivityQuoteMainBinding
 import com.sattoholic.todayquote.viewmodels.QuoteMainViewModel
-import com.sattoholic.todayquote.viewmodels.QuoteMainViewModelFactory
 
 class QuoteMainActivity : AppCompatActivity() {
     lateinit var binding: ActivityQuoteMainBinding
@@ -23,10 +22,13 @@ class QuoteMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quote_main)
-        viewModel = ViewModelProvider(this, QuoteMainViewModelFactory(application)).get(QuoteMainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(QuoteMainViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.main = this
+
+        viewModel.loadHelper(applicationContext)
+        viewModel.initialize()
 
         viewModel.dataLoaded.observe(this){
             if(it){
